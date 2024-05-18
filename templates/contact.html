@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        label {
+            text-align: center;
+        }
+
+        label,
+        input,
+        select {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        select {
+            padding: 8px;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+       
+        @media only screen and (max-width: 600px) {
+            form {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Contact Information</h1>
+    <form method="post" enctype="multipart/form-data" id="contactForm">
+        <label for="country">Country:</label>
+        <select id="country" name="country"></select>
+        
+        <label for="state">State:</label>
+        <select id="state" name="state"></select>
+        
+        <label for="city">City:</label>
+        <select id="city" name="city"></select>
+        
+        <label for="street_name">Street Name:</label>
+        <input type="text" id="street_name" name="street_name">
+        
+        <label for="contact_number">Contact Number:</label>
+        <input type="text" id="contact_number" name="contact_number">
+        
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        // Sample JSON data for countries, states, and cities
+        var data = {
+            "countries": [
+                {
+                    "name": "Country 1",
+                    "states": [
+                        {
+                            "name": "State 1",
+                            "cities": ["City 1", "City 2", "City 3"]
+                        },
+                        {
+                            "name": "State 2",
+                            "cities": ["City 4", "City 5", "City 6"]
+                        }
+                    ]
+                },
+                {
+                    "name": "Country 2",
+                    "states": [
+                        {
+                            "name": "State 3",
+                            "cities": ["City 7", "City 8", "City 9"]
+                        },
+                        {
+                            "name": "State 4",
+                            "cities": ["City 10", "City 11", "City 12"]
+                        }
+                    ]
+                }
+            ]
+        };
+
+        // Function to populate select element with options
+        function populateSelect(elementId, options) {
+            var selectElement = document.getElementById(elementId);
+            selectElement.innerHTML = ""; // Clear existing options
+            options.forEach(function(option) {
+                var optionElement = document.createElement("option");
+                optionElement.textContent = option;
+                selectElement.appendChild(optionElement);
+            });
+        }
+
+        // Populate countries
+        populateSelect("country", data.countries.map(country => country.name));
+
+        // Event listener for country change
+        document.getElementById("country").addEventListener("change", function() {
+            var countryName = this.value;
+            var selectedCountry = data.countries.find(country => country.name === countryName);
+            populateSelect("state", selectedCountry.states.map(state => state.name));
+        });
+
+        // Event listener for state change
+        document.getElementById("state").addEventListener("change", function() {
+            var countryName = document.getElementById("country").value;
+            var selectedCountry = data.countries.find(country => country.name === countryName);
+            var stateName = this.value;
+            var selectedState = selectedCountry.states.find(state => state.name === stateName);
+            populateSelect("city", selectedState.cities);
+        });
+    </script>
+</body>
+</html>

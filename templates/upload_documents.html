@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Documents</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        h2 {
+            text-align: center;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="file"] {
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+       
+        @media (max-width: 768px) {
+            form {
+                padding: 10px;
+            }
+        }
+
+    
+        @media (max-width: 480px) {
+            input[type="file"] {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>Upload Documents</h2>
+    <form action="/upload_documents" method="post" enctype="multipart/form-data">
+        <label for="personal_id_proof">Personal ID Proof:</label>
+        <input type="file" id="personal_id_proof" name="personal_id_proof" accept=".png, .jpg, .jpeg, .pdf, .doc, .docx">
+        
+        <label for="company_proof">Company Proof/License:</label>
+        <input type="file" id="company_proof" name="company_proof" accept=".png, .jpg, .jpeg, .pdf, .doc, .docx">
+        
+        <label for="company_product_license">Company Product/Service License:</label>
+        <input type="file" id="company_product_license" name="company_product_license" accept=".pdf, .doc, .docx">
+        
+        <input type="submit" value="Upload Documents">
+    </form>
+</body>
+</html>

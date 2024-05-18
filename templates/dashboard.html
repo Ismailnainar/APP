@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>User Dashboard</h1>
+    <p><strong>Name:</strong> {{ signup_data['Name'] }}</p>
+    <h2>Registration Details</h2>
+    {% if register_data %}
+    <p><strong>Address:</strong> {{ register_data['Address'] }}</p>
+    <p><strong>Email:</strong> {{ register_data['Email'] }}</p>
+    <p><strong>Location:</strong> {{ register_data['Location'] }}</p>
+    <p><strong>Resume:</strong> <a href="{{ url_for('static', filename='uploads/' + register_data['Resume'].split('/')[-1]) }}" target="_blank">View Resume</a></p>
+    <p><strong>Image:</strong> <img src="{{ url_for('static', filename='uploads/' + register_data['Image'].split('/')[-1]) }}" alt="Profile Image" style="width:100px;"></p>
+    {% endif %}
+    
+    <h2>Profile Information</h2>
+    {% if profile_data %}
+    <p><strong>Merchant Name:</strong> {{ profile_data.get('merchant_name', 'N/A') }}</p>
+    <p><strong>Merchant Description:</strong> {{ profile_data.get('merchant_description', 'N/A') }}</p>
+    <p><strong>Profile Picture:</strong> <img src="{{ url_for('static', filename='uploads/' + profile_data['profile_pic'].split('/')[-1]) }}" alt="Profile Picture" style="width:100px;"></p>
+    <p><strong>Profile Banner:</strong> <img src="{{ url_for('static', filename='uploads/' + profile_data['profile_banner'].split('/')[-1]) }}" alt="Profile Banner" style="width:300px;"></p>
+    {% endif %}
+    
+    <h2>Contact Information</h2>
+    {% if contact_data %}
+    <p><strong>Country:</strong> {{ contact_data['Country'] }}</p>
+    <p><strong>State:</strong> {{ contact_data['State'] }}</p>
+    <p><strong>City:</strong> {{ contact_data['City'] }}</p>
+    <p><strong>Street Name:</strong> {{ contact_data['Street Name'] }}</p>
+    <p><strong>Contact Number:</strong> {{ contact_data['Contact Number'] }}</p>
+    {% endif %}
+    
+    <h2>Uploaded Documents</h2>
+    {% if upload_data %}
+    <p><strong>Personal ID Proof:</strong> <a href="{{ url_for('static', filename='uploads/' + upload_data['Personal ID Proof'].split('/')[-1]) }}" target="_blank">View Document</a></p>
+    <p><strong>Company Proof/License:</strong> <a href="{{ url_for('static', filename='uploads/' + upload_data['Company Proof/License'].split('/')[-1]) }}" target="_blank">View Document</a></p>
+    <p><strong>Company Product/Service License:</strong> <a href="{{ url_for('static', filename='uploads/' + upload_data['Company Product/Service License'].split('/')[-1]) }}" target="_blank">View Document</a></p>
+    {% endif %}
+
+    <p><a href="{{ url_for('logout') }}">Logout</a></p>
+</body>
+</html>
